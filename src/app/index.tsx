@@ -14,6 +14,9 @@ import GameScreen from '@/components/ui/GameScreen';
 import HomeScreenTab from '@/components/ui/HomeScreenTab';
 import MyDayScreenTab from '@/components/ui/MyDayScreenTab';
 import MemoriesScreenTab from '@/components/ui/MemoriesScreenTab';
+import { router } from 'expo-router';
+
+
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {
@@ -39,11 +42,11 @@ export default function HomeScreen() {
      <SafeAreaProvider style={styles.safeArea}>
       <StatusBar style="dark" />
      <HomeScreenTab
-        patientName="John Doe"
-        onPlayMemoryGame={() => {}}
-        onOpenMyDay={() => {}}
-        onOpenMemories={() => {}}
-      />
+  patientName="John Doe"
+  onPlayMemoryGame={() => router.navigate('/game')}
+  onOpenMyDay={() => router.navigate('/my-day')}
+  onOpenMemories={() => router.navigate('/memories')}
+/>
     </SafeAreaProvider>
   );
 }

@@ -1,18 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+const TAB_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
+  index: 'home',
+  game: 'game-controller',
+  'my-day': 'calendar',
+  memories: 'images',
+};
 
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <Tabs
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarActiveTintColor: '#2563eb',
+        tabBarInactiveTintColor: '#64748b',
+        tabBarLabelStyle: { fontSize: 14, fontWeight: 'bold' },
+        tabBarIcon: ({ color }) => (
+          <Ionicons name={TAB_ICONS[route.name] ?? 'ellipse'} size={28}  />
+        ),
+      })}
+    >
+      <Tabs.Screen name="index" options={{ title: 'Home' }} />
+      <Tabs.Screen name="game" options={{ title: 'Game' }} />
+      <Tabs.Screen name="my-day" options={{ title: 'My Day' }} />
+      <Tabs.Screen name="memories" options={{ title: 'Memories' }} />
+    </Tabs>
   );
 }
